@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shyam RO Water - Delivery System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            min-height: 100vh;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .company-logo {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .company-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .owners {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .action-button {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            padding: 30px;
+            border-radius: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+        }
+        
+        .action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.4);
+        }
+        
+        .action-button.delivery {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+        }
+        
+        .action-button.report {
+            background: linear-gradient(135deg, #fdcb6e, #e84393);
+        }
+        
+        .action-button.monthly {
+            background: linear-gradient(135deg, #e17055, #fd79a8);
+        }
+        
+        .action-button.complete {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        }
+        
+        .icon {
+            font-size: 3rem;
+        }
+        
+        .delivery-form, .summary {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2d3436;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+        }
+        
+        .customer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .customer-card {
+            background: white;
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .customer-card:hover {
+            border-color: #00b894;
+            transform: scale(1.05);
+        }
+        
+        .customer-card.selected {
+            border-color: #00b894;
+            background: #e8f8f5;
+        }
+        
+        .customer-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .customer-area {
+            color: #636e72;
+            font-size: 0.9rem;
+        }
+        
+        .pricing-info {
+            background: linear-gradient(135deg, #fdcb6e, #fd79a8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 15px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .payment-section {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .payment-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .payment-btn {
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-btn.full {
+            background: #28a745;
+            color: white;
+        }
+        
+        .payment-btn.partial {
+            background: #ffc107;
+            color: black;
+        }
+        
+        .payment-btn.selected {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .amount-input {
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .back-btn {
+            background: #636e72;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .delivery-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 5px solid #00b894;
+        }
+        
+        .delivery-item.partial-payment {
+            border-left-color: #ffc107;
+            background: #fff8e1;
+        }
+        
+        .delivery-info {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .delivery-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .payment-status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .payment-status.paid {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .payment-status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .total-summary {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .success-message {
+            background: #00b894;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 15px 0;
+            font-size: 1.2rem;
+        }
+        
+        .month-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .month-btn {
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .current-month {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        
+        .pending-payments {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .pending-title {
+            color: #856404;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="company-logo">💧🚚</div>
+            <div class="company-name">SHYAM RO WATER</div>
+            <div class="owners">Owners: Sanjay Rohila | Sagar Rohila | Vaibhav Rohila</div>
+            <div class="tagline">Pure Water Delivery Service</div>
+        </div>
+        
+        <div class="main-content">
+            <div id="home-screen">
+                <div class="button-grid">
+                    <button class="action-button delivery" onclick="showDeliveryForm()">
+                        <span class="icon">🚚</span>
+                        <span>New Delivery</span>
+                    </button>
+                    
+                    <button class="action-button report" onclick="showReport()">
+                        <span class="icon">📋</span>
+                        <span>Today's Report</span>
+                    </button>
+                    
+                    <button class="action-button monthly" onclick="showMonthlyReport()">
+                        <span class="icon">📊</span>
+                        <span>Monthly Report</span>
+                    </button>
+                    
+                    <button class="action-button" onclick="showAddCustomer()" style="background: linear-gradient(135deg, #e17055, #fd79a8);">
+                        <span class="icon">👤</span>
+                        <span>Add Customer</span>
+                    </button>
+                    
+                    <button class="action-button complete" onclick="showDayComplete()">
+                        <span class="icon">✅</span>
+                        <span>End Day</span>
+                    </button>
+                </div>
+                
+                <div class="pricing-info">
+                    💧 Rate: ₹15 per Camphor
+                </div>
+                
+                <div class="total-summary" id="quick-stats">
+                    <h3>Today's Summary</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="today-deliveries">0</div>
+                            <div class="stat-label">Deliveries</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="today-camphors">0</div>
+                            <div class="stat-label">Camphors</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="today-earned">₹0</div>
+                            <div class="stat-label">Collected</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="today-pending">₹0</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Delivery Form -->
+            <div class="delivery-form" id="delivery-form">
+                <button class="back-btn" onclick="showHome()">← Back to Home</button>
+                <h2>🚚 Record New Delivery</h2>
+                
+                <div class="form-group">
+                    <label>🏠 Select Customer:</label>
+                    <div class="customer-grid" id="customer-grid">
+                        <!-- Customers will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>💧 Number of Camphors:</label>
+                    <select id="camphor-count">
+                        <option value="1">1 Camphor</option>
+                        <option value="2">2 Camphors</option>
+                        <option value="3">3 Camphors</option>
+                        <option value="4">4 Camphors</option>
+                        <option value="5">5 Camphors</option>
+                        <option value="6">6 Camphors</option>
+                        <option value="7">7 Camphors</option>
+                        <option value="8">8 Camphors</option>
+                        <option value="9">9 Camphors</option>
+                        <option value="10">10 Camphors</option>
+                    </select>
+                </div>
+                
+                <div class="pricing-info" id="total-amount">
+                    Total Amount: ₹15
+                </div>
+                
+                <div class="payment-section">
+                    <label style="font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; display: block;">💰 Payment Status:</label>
+                    <div class="payment-buttons">
+                        <button class="payment-btn full" onclick="selectPayment('full')">
+                            ✅ Full Payment<br>Received
+                        </button>
+                        <button class="payment-btn partial" onclick="selectPayment('partial')">
+                            ⚠️ Partial/No<br>Payment
+                        </button>
+                    </div>
+                    
+                    <div class="amount-input" id="partial-amount">
+                        <label>Amount Received (₹):</label>
+                        <input type="number" id="received-amount" placeholder="Enter amount received" min="0">
+                    </div>
+                </div>
+                
+                <button class="submit-btn" onclick="recordDelivery()">✅ Record Delivery</button>
+                <div id="delivery-success" class="success-message" style="display: none;">
+                    ✅ Delivery recorded successfully!
+                </div>
+            </div>
+            
+            <!-- Today's Report -->
+            <div class="summary" id="report-screen">
+                <button class="back-btn" onclick="showHome()">← Back to Home</button>
+                <h2>📋 Today's Deliveries</h2>
+                
+                <div class="total-summary">
+                    <h3>Daily Summary</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="report-deliveries">0</div>
+                            <div class="stat-label">Total Deliveries</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="report-camphors">0</div>
+                            <div class="stat-label">Camphors Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="report-earned">₹0</div>
+                            <div class="stat-label">Money Collected</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="report-pending">₹0</div>
+                            <div class="stat-label">Pending Amount</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="delivery-list">
+                    <!-- Delivery items will be populated here -->
+                </div>
+            </div>
+            
+            <!-- Monthly Report -->
+            <div class="summary" id="monthly-screen">
+                <button class="back-btn" onclick="showHome()">← Back to Home</button>
+                <h2>📊 Monthly Report</h2>
+                
+                <div class="month-nav">
+                    <button class="month-btn" onclick="changeMonth(-1)">← Previous</button>
+                    <div class="current-month" id="current-month-display">January 2024</div>
+                    <button class="month-btn" onclick="changeMonth(1)">Next →</button>
+                </div>
+                
+                <div class="total-summary">
+                    <h3>Monthly Summary</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="monthly-deliveries">0</div>
+                            <div class="stat-label">Total Deliveries</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="monthly-camphors">0</div>
+                            <div class="stat-label">Camphors Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="monthly-earned">₹0</div>
+                            <div class="stat-label">Money Collected</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="monthly-pending">₹0</div>
+                            <div class="stat-label">Total Pending</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pending-payments" id="pending-customers">
+                    <div class="pending-title">⚠️ Customers with Pending Payments</div>
+                    <div id="pending-list">
+                        <!-- Pending payments will be listed here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add Customer Form -->
+            <div class="delivery-form" id="add-customer-form">
+                <button class="back-btn" onclick="showHome()">← Back to Home</button>
+                <h2>👤 Add New Customer</h2>
+                
+                <div class="form-group">
+                    <label>🏪 Shop/Business Name:</label>
+                    <input type="text" id="shop-name" placeholder="Enter shop or business name">
+                </div>
+                
+                <div class="form-group">
+                    <label>👨‍💼 Shopkeeper Name:</label>
+                    <input type="text" id="shopkeeper-name" placeholder="Enter shopkeeper's name">
+                </div>
+                
+                <div class="form-group">
+                    <label>📍 Area/Location:</label>
+                    <input type="text" id="customer-area" placeholder="Enter area or location">
+                </div>
+                
+                <div class="form-group">
+                    <label>🎨 Select Icon:</label>
+                    <div class="customer-grid" id="icon-grid">
+                        <div class="customer-card icon-option" data-icon="🏪" onclick="selectIcon('🏪')">
+                            <div style="font-size: 3rem;">🏪</div>
+                            <div>Shop</div>
+                        </div>
+                        <div class="customer-card icon-option" data-icon="🏨" onclick="selectIcon('🏨')">
+                            <div style="font-size: 3rem;">🏨</div>
+                            <div>Hotel</div>
+                        </div>
+                        <div class="customer-card icon-option" data-icon="🍽️" onclick="selectIcon('🍽️')">
+                            <div style="font-size: 3rem;">🍽️</div>
+                            <div>Restaurant</div>
+                        </div>
+                        <div class="customer-card icon-option" data-icon="☕" onclick="selectIcon('☕')">
+                            <div style="font-size: 3rem;">☕</div>
+                            <div>Tea Stall</div>
+                        </div>
+                        <div class="customer-card icon-option" data-icon="🏥" onclick="selectIcon('🏥')">
+                            <div style="font-size: 3rem;">🏥</div>
+                            <div>Medical</div>
+                        </div>
+                        <div class="customer-card icon-option" data-icon="🏫" onclick="selectIcon('🏫')">
+                            <div style="font-size: 3rem;">🏫</div>
+                            <div>School</div>
+                        </div>
+                        <div class="customer-card icon-option" data-icon="💊" onclick="selectIcon('💊')">
+                            <div style="font-size: 3rem;">💊</div>
+                            <div>Pharmacy</div>
+                        </div>
+                        <div class="customer-card icon-option" data-icon="🏠" onclick="selectIcon('🏠')">
+                            <div style="font-size: 3rem;">🏠</div>
+                            <div>House</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="submit-btn" onclick="addNewCustomer()">✅ Add Customer</button>
+                <div id="add-customer-success" class="success-message" style="display: none;">
+                    ✅ New customer added successfully!
+                </div>
+            </div>
+            
+            <!-- Day Complete -->
+            <div class="delivery-form" id="day-complete">
+                <button class="back-btn" onclick="showHome()">← Back to Home</button>
+                <h2>✅ End of Day Summary</h2>
+                
+                <div class="total-summary">
+                    <h3>Work Completed Successfully!</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="final-deliveries">0</div>
+                            <div class="stat-label">Total Deliveries</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="final-camphors">0</div>
+                            <div class="stat-label">Camphors Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="final-earned">₹0</div>
+                            <div class="stat-label">Money Collected</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="final-pending">₹0</div>
+                            <div class="stat-label">Pending Collection</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="submit-btn" onclick="startNewDay()">🌅 Start New Day</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Customers data with shopkeeper names
+        let customers = [
+            { id: 1, name: "Raj Hotel", shopkeeper: "Rajesh Kumar", area: "Main Road", icon: "🏨" },
+            { id: 2, name: "Sharma General Store", shopkeeper: "Mohan Sharma", area: "Gandhi Nagar", icon: "🏪" },
+            { id: 3, name: "ABC School Canteen", shopkeeper: "Priya Devi", area: "School Street", icon: "🏫" },
+            { id: 4, name: "City Hospital Cafe", shopkeeper: "Dr. Verma", area: "Hospital Road", icon: "🏥" },
+            { id: 5, name: "Gupta Restaurant", shopkeeper: "Suresh Gupta", area: "Market Area", icon: "🍽️" },
+            { id: 6, name: "Kumar Medical Store", shopkeeper: "Amit Kumar", area: "Sector 5", icon: "💊" },
+            { id: 7, name: "Patel Tea Stall", shopkeeper: "Ramesh Patel", area: "Bus Stand", icon: "☕" },
+            { id: 8, name: "Singh Grocery Shop", shopkeeper: "Harinder Singh", area: "Market Road", icon: "🏪" }
+        ];
+        
+        // Data storage
+        let deliveries = [];
+        let selectedCustomer = null;
+        let selectedPaymentType = null;
+        let selectedIcon = null;
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        
+        // Initialize the app
+        function init() {
+            populateCustomers();
+            updateStats();
+            updateCamphorCount();
+            updateMonthDisplay();
+        }
+        
+        function populateCustomers() {
+            const grid = document.getElementById('customer-grid');
+            grid.innerHTML = '';
+            
+            customers.forEach(customer => {
+                const card = document.createElement('div');
+                card.className = 'customer-card';
+                card.onclick = () => selectCustomer(customer.id);
+                card.innerHTML = `
+                    <div style="font-size: 2rem; margin-bottom: 10px;">${customer.icon}</div>
+                    <div class="customer-name">${customer.name}</div>
+                    <div style="color: #00b894; font-weight: bold; font-size: 0.9rem; margin: 5px 0;">${customer.shopkeeper}</div>
+                    <div class="customer-area">${customer.area}</div>
+                `;
+                card.setAttribute('data-customer-id', customer.id);
+                grid.appendChild(card);
+            });
+        }
+        
+        function selectCustomer(customerId) {
+            selectedCustomer = customerId;
+            
+            // Remove selected class from all cards
+            document.querySelectorAll('.customer-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked card
+            document.querySelector(`[data-customer-id="${customerId}"]`).classList.add('selected');
+        }
+        
+        function selectIcon(icon) {
+            selectedIcon = icon;
+            
+            // Remove selected class from all icon cards
+            document.querySelectorAll('.icon-option').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked card
+            document.querySelector(`[data-icon="${icon}"]`).classList.add('selected');
+        }
+        
+        function addNewCustomer() {
+            const shopName = document.getElementById('shop-name').value.trim();
+            const shopkeeperName = document.getElementById('shopkeeper-name').value.trim();
+            const area = document.getElementById('customer-area').value.trim();
+            
+            if (!shopName || !shopkeeperName || !area || !selectedIcon) {
+                alert('Please fill all fields and select an icon!');
+                return;
+            }
+            
+            const newCustomer = {
+                id: Date.now(),
+                name: shopName,
+                shopkeeper: shopkeeperName,
+                area: area,
+                icon: selectedIcon
+            };
+            
+            customers.push(newCustomer);
+            populateCustomers();
+            
+            // Show success message
+            document.getElementById('add-customer-success').style.display = 'block';
+            
+            // Reset form after 2 seconds
+            setTimeout(() => {
+                document.getElementById('add-customer-success').style.display = 'none';
+                resetAddCustomerForm();
+            }, 2000);
+        }
+        
+        function resetAddCustomerForm() {
+            document.getElementById('shop-name').value = '';
+            document.getElementById('shopkeeper-name').value = '';
+            document.getElementById('customer-area').value = '';
+            selectedIcon = null;
+            
+            document.querySelectorAll('.icon-option').forEach(card => {
+                card.classList.remove('selected');
+            });
+        }
+        
+        function updateCamphorCount() {
+            const camphorCount = document.getElementById('camphor-count');
+            if (camphorCount) {
+                camphorCount.addEventListener('change', function() {
+                    const count = parseInt(this.value);
+                    const totalAmount = count * 15;
+                    document.getElementById('total-amount').textContent = `Total Amount: ₹${totalAmount}`;
+                });
+            }
+        }
+        
+        function selectPayment(type) {
+            selectedPaymentType = type;
+            
+            // Remove selected class from all payment buttons
+            document.querySelectorAll('.payment-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked button
+            document.querySelector(`.payment-btn.${type}`).classList.add('selected');
+            
+            // Show/hide partial amount input
+            const partialInput = document.getElementById('partial-amount');
+            if (type === 'partial') {
+                partialInput.style.display = 'block';
+            } else {
+                partialInput.style.display = 'none';
+            }
+        }
+        
+        function recordDelivery() {
+            if (!selectedCustomer) {
+                alert('Please select a customer first!');
+                return;
+            }
+            
+            if (!selectedPaymentType) {
+                alert('Please select payment status!');
+                return;
+            }
+            
+            const camphorCount = parseInt(document.getElementById('camphor-count').value);
+            const totalAmount = camphorCount * 15;
+            const customer = customers.find(c => c.id === selectedCustomer);
+            const now = new Date();
+            
+            let receivedAmount = totalAmount;
+            if (selectedPaymentType === 'partial') {
+                const inputAmount = document.getElementById('received-amount').value;
+                receivedAmount = inputAmount ? parseInt(inputAmount) : 0;
+                
+                if (receivedAmount > totalAmount) {
+                    alert('Received amount cannot be more than total amount!');
+                    return;
+                }
+            }
+            
+            const delivery = {
+                id: Date.now(),
+                customer: customer,
+                camphors: camphorCount,
+                totalAmount: totalAmount,
+                receivedAmount: receivedAmount,
+                pendingAmount: totalAmount - receivedAmount,
+                paymentType: selectedPaymentType,
+                date: now.toLocaleDateString('en-IN'),
+                time: now.toLocaleTimeString('en-IN', { 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: true 
+                }),
+                month: now.getMonth(),
+                year: now.getFullYear(),
+                timestamp: now
+            };
+            
+            deliveries.push(delivery);
+            
+            // Show success message
+            document.getElementById('delivery-success').style.display = 'block';
+            
+            // Reset form after 2 seconds
+            setTimeout(() => {
+                document.getElementById('delivery-success').style.display = 'none';
+                resetDeliveryForm();
+            }, 2000);
+            
+            updateStats();
+        }
+        
+        function resetDeliveryForm() {
+            selectedCustomer = null;
+            selectedPaymentType = null;
+            
+            document.querySelectorAll('.customer-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            document.querySelectorAll('.payment-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            document.getElementById('camphor-count').value = '1';
+            document.getElementById('total-amount').textContent = 'Total Amount: ₹15';
+            document.getElementById('partial-amount').style.display = 'none';
+            document.getElementById('received-amount').value = '';
+        }
+        
+        function updateStats() {
+            const today = new Date().toLocaleDateString('en-IN');
+            const todayDeliveries = deliveries.filter(d => d.date === today);
+            
+            const totalDeliveries = todayDeliveries.length;
+            const totalCamphors = todayDeliveries.reduce((sum, delivery) => sum + delivery.camphors, 0);
+            const totalEarned = todayDeliveries.reduce((sum, delivery) => sum + delivery.receivedAmount, 0);
+            const totalPending = todayDeliveries.reduce((sum, delivery) => sum + delivery.pendingAmount, 0);
+            
+            // Update home screen stats
+            document.getElementById('today-deliveries').textContent = totalDeliveries;
+            document.getElementById('today-camphors').textContent = totalCamphors;
+            document.getElementById('today-earned').textContent = `₹${totalEarned}`;
+            document.getElementById('today-pending').textContent = `₹${totalPending}`;
+            
+            // Update report screen stats
+            document.getElementById('report-deliveries').textContent = totalDeliveries;
+            document.getElementById('report-camphors').textContent = totalCamphors;
+            document.getElementById('report-earned').textContent = `₹${totalEarned}`;
+            document.getElementById('report-pending').textContent = `₹${totalPending}`;
+            
+            // Update final stats
+            document.getElementById('final-deliveries').textContent = totalDeliveries;
+            document.getElementById('final-camphors').textContent = totalCamphors;
+            document.getElementById('final-earned').textContent = `₹${totalEarned}`;
+            document.getElementById('final-pending').textContent = `₹${totalPending}`;
+        }
+        
+        function updateDeliveryList() {
+            const list = document.getElementById('delivery-list');
+            const today = new Date().toLocaleDateString('en-IN');
+            const todayDeliveries = deliveries.filter(d => d.date === today);
+            
+            list.innerHTML = '';
+            
+            if (todayDeliveries.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #636e72; font-size: 1.2rem;">No deliveries recorded today.</p>';
+                return;
+            }
+            
+            todayDeliveries.forEach(delivery => {
+                const item = document.createElement('div');
+                item.className = `delivery-item ${delivery.paymentType === 'partial' ? 'partial-payment' : ''}`;
+                
+                const paymentStatusClass = delivery.pendingAmount > 0 ? 'pending' : 'paid';
+                const paymentStatusText = delivery.pendingAmount > 0 ? 
+                    `₹${delivery.receivedAmount} paid, ₹${delivery.pendingAmount} pending` : 
+                    `₹${delivery.receivedAmount} - Fully Paid`;
+                
+                item.innerHTML = `
+                    <div class="delivery-info">
+                        ${delivery.customer.icon} ${delivery.customer.name}<br>
+                        <small style="color: #00b894; font-weight: bold;">Shopkeeper: ${delivery.customer.shopkeeper}</small>
+                        <br><small>${delivery.camphors} Camphor${delivery.camphors > 1 ? 's' : ''}</small>
+                    </div>
+                    <div style="color: #636e72; font-size: 0.9rem; margin-bottom: 10px;">
+                        ${delivery.time} - ${delivery.customer.area}
+                    </div>
+                    <div class="delivery-details">
+                        <span>Total: ₹${delivery.totalAmount}</span>
+                        <span class="payment-status ${paymentStatusClass}">${paymentStatusText}</span>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+        
+        function updateMonthDisplay() {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('current-month-display').textContent = `${months[currentMonth]} ${currentYear}`;
+            updateMonthlyStats();
+        }
+        
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            updateMonthDisplay();
+        }
+        
+        function updateMonthlyStats() {
+            const monthlyDeliveries = deliveries.filter(d => d.month === currentMonth && d.year === currentYear);
+            
+            const totalDeliveries = monthlyDeliveries.length;
+            const totalCamphors = monthlyDeliveries.reduce((sum, delivery) => sum + delivery.camphors, 0);
+            const totalEarned = monthlyDeliveries.reduce((sum, delivery) => sum + delivery.receivedAmount, 0);
+            const totalPending = monthlyDeliveries.reduce((sum, delivery) => sum + delivery.pendingAmount, 0);
+            
+            document.getElementById('monthly-deliveries').textContent = totalDeliveries;
+            document.getElementById('monthly-camphors').textContent = totalCamphors;
+            document.getElementById('monthly-earned').textContent = `₹${totalEarned}`;
+            document.getElementById('monthly-pending').textContent = `₹${totalPending}`;
+            
+            updatePendingCustomers(monthlyDeliveries);
+        }
+        
+        function updatePendingCustomers(monthlyDeliveries) {
+            const pendingList = document.getElementById('pending-list');
+            const customerPending = {};
+            
+            // Calculate pending amounts per customer
+            monthlyDeliveries.forEach(delivery => {
+                if (delivery.pendingAmount > 0) {
+                    const customerId = delivery.customer.id;
+                    if (!customerPending[customerId]) {
+                        customerPending[customerId] = {
+                            customer: delivery.customer,
+                            totalPending: 0,
+                            deliveryCount: 0
+                        };
+                    }
+                    customerPending[customerId].totalPending += delivery.pendingAmount;
+                    customerPending[customerId].deliveryCount++;
+                }
+            });
+            
+            pendingList.innerHTML = '';
+            
+            if (Object.keys(customerPending).length === 0) {
+                pendingList.innerHTML = '<p style="text-align: center; color: #155724; font-size: 1.1rem;">✅ No pending payments this month!</p>';
+                return;
+            }
+            
+            Object.values(customerPending).forEach(pending => {
+                const item = document.createElement('div');
+                item.className = 'delivery-item';
+                item.innerHTML = `
+                    <div class="delivery-info">
+                        ${pending.customer.icon} ${pending.customer.name}<br>
+                        <small style="color: #00b894; font-weight: bold;">Shopkeeper: ${pending.customer.shopkeeper}</small>
+                    </div>
+                    <div style="color: #636e72; font-size: 0.9rem; margin-bottom: 10px;">
+                        ${pending.customer.area}
+                    </div>
+                    <div class="delivery-details">
+                        <span>${pending.deliveryCount} deliveries</span>
+                        <span class="payment-status pending">₹${pending.totalPending} pending</span>
+                    </div>
+                `;
+                pendingList.appendChild(item);
+            });
+        }
+        
+        function showAddCustomer() {
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('delivery-form').style.display = 'none';
+            document.getElementById('day-complete').style.display = 'none';
+            document.getElementById('report-screen').style.display = 'none';
+            document.getElementById('monthly-screen').style.display = 'none';
+            document.getElementById('add-customer-form').style.display = 'block';
+        }
+        
+        function showHome() {
+            document.getElementById('home-screen').style.display = 'block';
+            document.getElementById('delivery-form').style.display = 'none';
+            document.getElementById('day-complete').style.display = 'none';
+            document.getElementById('report-screen').style.display = 'none';
+            document.getElementById('monthly-screen').style.display = 'none';
+            document.getElementById('add-customer-form').style.display = 'none';
+        }
+        
+        function showDeliveryForm() {
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('delivery-form').style.display = 'block';
+            document.getElementById('day-complete').style.display = 'none';
+            document.getElementById('report-screen').style.display = 'none';
+            document.getElementById('monthly-screen').style.display = 'none';
+            document.getElementById('add-customer-form').style.display = 'none';
+        }
+        
+        function showDayComplete() {
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('delivery-form').style.display = 'none';
+            document.getElementById('day-complete').style.display = 'block';
+            document.getElementById('report-screen').style.display = 'none';
+            document.getElementById('monthly-screen').style.display = 'none';
+            document.getElementById('add-customer-form').style.display = 'none';
+            updateStats();
+        }
+        
+        function showReport() {
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('delivery-form').style.display = 'none';
+            document.getElementById('day-complete').style.display = 'none';
+            document.getElementById('report-screen').style.display = 'block';
+            document.getElementById('monthly-screen').style.display = 'none';
+            document.getElementById('add-customer-form').style.display = 'none';
+            updateDeliveryList();
+        }
+        
+        function showMonthlyReport() {
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('delivery-form').style.display = 'none';
+            document.getElementById('day-complete').style.display = 'none';
+            document.getElementById('report-screen').style.display = 'none';
+            document.getElementById('monthly-screen').style.display = 'block';
+            document.getElementById('add-customer-form').style.display = 'none';
+            updateMonthlyStats();
+        }
+        
+        function startNewDay() {
+            if (confirm('Are you sure you want to start a new day? Today\'s data will be saved but cleared from daily view.')) {
+                // Don't clear deliveries data - it should persist for monthly reports
+                updateStats();
+                showHome();
+                alert('New day started! Yesterday\'s data has been saved to monthly records.');
+            }
+        }
+        
+        // Initialize app when page loads
+        init();
+    </script>
+</body>
+</html>
