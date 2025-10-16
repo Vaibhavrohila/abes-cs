@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container-box {
+            display: grid;
+            grid-template-rows: repeat(2,1fr);
+            grid-template-columns: repeat(3,1fr);
+            border: 2px solid black;
+            gap: 4px;
+        }
+        .box{
+            border: 2px solid grey;
+            height: 500px;
+        }
+        #head {
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+        #footer {
+            background-color: black;
+            color: wheat;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <p id="head">Amazon Webpage</p>
+    </header>
+    <main>
+        <div id="container-box">
+            <div class="box">1</div>
+            <div class="box">2</div>
+            <div class="box">3</div>
+            <div class="box">4</div>
+            <div class="box">5</div>
+            <div class="box">6</div>
+        </div>
+    </main>
+    <footer>
+        <p id="footer">
+            copyright Mr. Vaibhav Rohila, abesec-cs-c 2025
+        </p>
+    </footer>
+</body>
+</html>
